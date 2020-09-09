@@ -16,34 +16,34 @@ Public Class WorkForm
         'Устанавливаем дефолты при загоузке формы 
         'Переносим константы из формы настроек в рабочую форму. Данные получаем из таблицы M_Lots
         Controllabel.Text = ""
-        IDApp = SettingsForm.IDApp
-        L_AppName.Text = SettingsForm.LabelAppName.Text
-        StationID = SettingsForm.StationID
-        L_StationName.Text = SettingsForm.Label_StationName.Text
-        L_Line.Text = SettingsForm.Lebel_StationLine.Text
-        LineID = SettingsForm.LineID
+        IDApp = SettingsForm_old.IDApp
+        L_AppName.Text = SettingsForm_old.LabelAppName.Text
+        StationID = SettingsForm_old.StationID
+        L_StationName.Text = SettingsForm_old.Label_StationName.Text
+        L_Line.Text = SettingsForm_old.Lebel_StationLine.Text
+        LineID = SettingsForm_old.LineID
         LineNumber = L_Line.Text
-        L_LOT.Text = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 0)
-        L_FullLot.Text = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 1)
-        L_Model.Text = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 2)
+        L_LOT.Text = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 0)
+        L_FullLot.Text = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 1)
+        L_Model.Text = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 2)
         ModelName = L_Model.Text
-        LOTID = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 6)
-        CheckDublicateSCID = SettingsForm.CheckBoxDublicateSCID.Checked
-        HDCPUpload = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 7)
-        CertUpload = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 8)
-        MACUpload = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 9)
-        CheckModel = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 10)
-        SWVersion = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 11)
-        SWGS1Version = SettingsForm.GetUploadParametr(SettingsForm.SelectedRow, 12)
+        LOTID = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 6)
+        CheckDublicateSCID = SettingsForm_old.CheckBoxDublicateSCID.Checked
+        HDCPUpload = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 7)
+        CertUpload = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 8)
+        MACUpload = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 9)
+        CheckModel = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 10)
+        SWVersion = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 11)
+        SWGS1Version = SettingsForm_old.GetUploadParametr(SettingsForm_old.SelectedRow, 12)
         '_____________________________________________________________________________
-        LabelScenarioID = SettingsForm.DG_LotList.Rows(SettingsForm.SelectedRow).Cells(13).Value
+        LabelScenarioID = SettingsForm_old.DG_LotList.Rows(SettingsForm_old.SelectedRow).Cells(13).Value
         GetPrinterSettings(LabelScenarioID, TB_IDCode_X, TB_IDCode_Y, TB_IDText_X, TB_IDText_Y, TB_IDNum_X)
         If PrSet = False Then
             CreatePrinterSettings(LabelScenarioID)
             GetPrinterSettings(LabelScenarioID, TB_IDCode_X, TB_IDCode_Y, TB_IDText_X, TB_IDText_Y, TB_IDNum_X)
         End If
         '_____________________________________________________________________________
-        PTID = SettingsForm.DG_LotList.Rows(SettingsForm.SelectedRow).Cells(14).Value
+        PTID = SettingsForm_old.DG_LotList.Rows(SettingsForm_old.SelectedRow).Cells(14).Value
 
         'Настройки COM портов
         UploadSerialPort.Close()
@@ -66,10 +66,10 @@ Public Class WorkForm
         End Try
 
         'задаем условие проверки уникальности и печати этикеток
-        SNLabelCount = SettingsForm.TB_LabelSNCount.Text
-        PrintSN = SettingsForm.CheckBoxSN.Checked
-        IDLabelCount = SettingsForm.TB_LabelIDCount.Text
-        PrintID = SettingsForm.CheckBoxID.Checked
+        SNLabelCount = SettingsForm_old.TB_LabelSNCount.Text
+        PrintSN = SettingsForm_old.CheckBoxSN.Checked
+        IDLabelCount = SettingsForm_old.TB_LabelIDCount.Text
+        PrintID = SettingsForm_old.CheckBoxID.Checked
         'Требуется печать или нет
         If PrintSN = True Or PrintID = True Then
             Try
@@ -112,7 +112,7 @@ Public Class WorkForm
     ' условия для возврата в окно настроек
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BT_OpenSettings.Click, BT_LOGInClose.Click
         If MsgBox("Вы уверены в том, что собираетесь вернуться" & vbCrLf & "в окно настроек ЛОТа?", vbYesNo) = vbYes Then
-            SettingsForm.Show()
+            SettingsForm_old.Show()
             Me.Close()
         End If
     End Sub

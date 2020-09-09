@@ -1,122 +1,135 @@
-﻿
-Imports System.Threading
-Imports System.DateTime
-Imports Library_2
-
+﻿Imports Library3
 Public Class SettingsForm
-
-    'загрузка формы
-    Public LineID As Integer
-    Public IDApp, StationID As String
-    Private Sub LOT_List_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'считываем название станции (имя ПК)
-        Label_StationName.Text = GetPCName()
-        'запрашиваем в базе ID станции по имени ПК
-        StationID = GetStationID(Label_StationName.Text)
-        'если не найдена, то регистрируем новую станцию и повторно запрашиваем в базе ID станции по имени ПК
-        If StationID = "" Then
-            StationRegister(Label_StationName.Text)
-            StationID = GetStationID(Label_StationName.Text)
-        End If
-        LabelStationID.Text = StationID
-        'при создании приложения прописываем созданный заранее ID приложения из базы (FAS_Aplications)
-        IDApp = Label_IDApp.Text
-        'определяем имя приложения из базы (FAS_Aplications)
-        LabelAppName.Text = GetAppName(IDApp)
-        'записываем название Линии 
-        Lebel_StationLine.Text = GetLine(StationID, IDApp)
-        LineID = GetLineID(StationID, IDApp)
-
-        'условие если номер линии не определен на сервере
-        If Lebel_StationLine.Text = "" Then
+    ReadOnly IDApp As Integer = 29
+    Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
+    Private Sub SettingsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        PCInfo = GetPCInfo(IDApp)
+        If PCInfo.Count = 0 Then
             DG_LOTListPresent.Visible = False
-            'записываем информацию о дальнейшей невозможности использования
-            L_Result.Text = "Дальнейшая работа невозможна, " & vbCrLf & "укажите рабочую линию!"
-            L_Result.Location = New Point(24, 33)
-            L_Result.Font = New Font("Microsoft Sans Serif", 20, FontStyle.Bold)
-            L_Result.ForeColor = Color.Red
-            L_Result.Visible = True
-        End If
-        'загружаем список лотов в грид, SQL запрос "LotList" расположен в SQLConnectionMod
-        GetLotList_UpStation_GS(DG_LotList)
-        'определяем настройки для программы
-        CheckBoxDublicateSCID.Checked = True
-        CheckBoxID.Checked = True
-        GetLotList()
-    End Sub
-
-    Private Sub BT_RefreshLOT_Click(sender As Object, e As EventArgs) Handles BT_RefreshLOT.Click
-        DG_LOTListPresent.Rows.Clear()
-        'DG_LotList.Rows.Clear()
-        GetLotList_UpStation_GS(DG_LotList)
-        GetLotList()
-    End Sub
-    'обновляем название линии после настройки или перенастройки
-    Public Sub LineUpdate()
-        Lebel_StationLine.Text = GetLine(StationID, IDApp)
-        LineID = GetLineID(StationID, IDApp)
-        If Lebel_StationLine.Text = "" Then
-            L_Result.Text = "Дальнейшая работа невозможна, 
-укажите рабочую линию!"
+            ShowLineSettings()
         Else
-            L_Result.Text = ""
-            DG_LOTListPresent.Visible = True
+            LabelAppName.Text = PCInfo(1)
+            Label_StationName.Text = PCInfo(5)
+            Lebel_StationLine.Text = PCInfo(3)
+            TextBox1.Text = "App_ID = " & PCInfo(0) & vbCrLf &
+                            "App_Caption = " & PCInfo(1) & vbCrLf &
+                            "lineID = " & PCInfo(2) & vbCrLf &
+                            "LineName = " & PCInfo(3) & vbCrLf &
+                            "StationID = " & PCInfo(4) & vbCrLf &
+                            "StationName = " & PCInfo(5)
         End If
-    End Sub
-    'Опредеяем номер выбранной строки в таблице лотов
-    Public selRowNum, LOTID, LOTCode As Integer
-    Private Sub DG_LOTListPresent_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DG_LOTListPresent.CellClick
-        selRowNum = DG_LOTListPresent.CurrentCell.RowIndex
-    End Sub
-
-    Private Sub BT_LineSettings_Click(sender As Object, e As EventArgs) Handles BT_LineSettings.Click
-        LineSettings.Show()
-    End Sub
-
-    Public Model, FullLot, CreateDate As String
-    Public InLotQty, ReadyQty, UsedQty As Integer
+        'загружаем список лотов в грид
+        GetLotList_SDTV(DG_LotList)
+        GetLotList()
+    End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
         For i = 0 To DG_LotList.RowCount - 1
-            LOTCode = DG_LotList.Rows(i).Cells(0).Value
-            FullLot = DG_LotList.Rows(i).Cells(1).Value
-            Model = DG_LotList.Rows(i).Cells(2).Value
-            InLotQty = DG_LotList.Rows(i).Cells(3).Value
-            ReadyQty = DG_LotList.Rows(i).Cells(4).Value
-            UsedQty = DG_LotList.Rows(i).Cells(5).Value
-            LOTID = DG_LotList.Rows(i).Cells(6).Value
-            If ReadyQty > 0 Then
-                DG_LOTListPresent.Rows.Add(LOTCode, FullLot, Model, InLotQty, ReadyQty, UsedQty, LOTID)
-            End If
+            DG_LOTListPresent.Rows.Add(DG_LotList.Item(0, i).Value, DG_LotList.Item(1, i).Value,
+                                       DG_LotList.Item(2, i).Value, DG_LotList.Item(3, i).Value)
         Next
-        DG_LOTListPresent.Sort(DG_LOTListPresent.Columns(6), System.ComponentModel.ListSortDirection.Descending)
-    End Sub
-
-    'Обработка кнопки запуск
-    Public LabelScenarioID, SelectedRow As Integer
-    Private Sub BT_SelectLot_Click(sender As Object, e As EventArgs) Handles BT_SelectLot.Click
-        'определяем LOTCode и LOTID
-        LOTID = DG_LOTListPresent.Rows(selRowNum).Cells(6).Value
-        If DG_LOTListPresent.Rows.Count <> 0 Then
-            For i = 1 To DG_LotList.RowCount - 1
-                If DG_LotList.Rows(i).Cells(6).Value = LOTID Then
-                    SelectedRow = i
+        DG_LOTListPresent.Sort(DG_LOTListPresent.Columns(3), System.ComponentModel.ListSortDirection.Descending)
+    End Sub 'Запись списка лотов в LOT List Presenter
+    'Обновление списка лотов
+    Private Sub BT_RefreshLOT_Click(sender As Object, e As EventArgs) Handles BT_RefreshLOT.Click
+        DG_LOTListPresent.Rows.Clear()
+        GetLotList_ContractStation(DG_LotList)
+        GetLotList()
+    End Sub 'Обновление списка лотов
+    '_______________________________________________________________________________________________________________
+    'Модуль настройки линий
+    Private LineID, StepID As Integer
+    Private Sub BT_SaveLine_Click(sender As Object, e As EventArgs) Handles BT_SaveLine.Click
+        If CB_Line.Text = "" Then
+            MsgBox(Prompt:="Выберите номер линии и название требуемой операции!")
+        Else
+            'определяем id выбранной линии
+            For J = 0 To DG_LineList.Rows.Count - 1
+                If CB_Line.Text = DG_LineList.Rows(J).Cells(1).Value Then
+                    LineID = DG_LineList.Rows(J).Cells(0).Value
                     Exit For
                 End If
             Next
-            WorkForm.Show()
-            Me.Close()
-        Else
-            MsgBox("Список ЛОТов отсутствует. Добавьте ЛОТ, либо Запустите FAS Start!")
-            Exit Sub
+            'если приложение найдено, то обновляем только номер линии
+            If DG_AppList.Rows.Count <> 0 Then
+                RunCommand("use FAS
+            update [FAS].[dbo].[FAS_App_ListForPC]  set LineID = " & LineID & ", CreateDate = CURRENT_TIMESTAMP , 
+            [CT_ScanStep] = " & StepID & "
+            where StationID = " & PCInfo(4) & " and App_ID = " & IDApp)
+            Else
+                'если не найдено, то создаем новую запись с названием этого ПК и приложения
+                RunCommand("use FAS
+            insert into [FAS].[dbo].[FAS_App_ListForPC] (App_ID,LineID,StationID,CreateDate,[CT_ScanStep]) 
+            values (" & IDApp & "," & LineID & "," & GetStationID() & ",CURRENT_TIMESTAMP, " & StepID & ")")
+            End If
+            'обновляем список приложений для данного ПК
+            AppRefresh()
         End If
     End Sub
 
-    Public Function GetUploadParametr(SelectedRow As Integer, selectedCells As Integer)
-        Return DG_LotList.Rows(SelectedRow).Cells(selectedCells).Value
-    End Function
+    'список приложений для данного ПК
+    Private Sub AppRefresh()
+        LoadGridFromDB(DG_AppList, "use FAS
+            SELECT Ap.App_Caption,L.LineName,St.StationName,Step.StepName
+              FROM [FAS].[dbo].[FAS_App_ListForPC] as List
+              left join [FAS].[dbo].[FAS_Applications] as Ap On Ap.App_ID = List.App_ID
+              left join [FAS].[dbo].[FAS_Stations] as St On St.StationID = List.StationID
+              left join [FAS].[dbo].[FAS_Lines] as L ON l.LineID = List.lineID
+              left join [FAS].[dbo].[Ct_StepScan] as Step On Step.ID = CT_ScanStep
+              where  List.StationID = '" & GetStationID() & "' and List.App_ID = " & IDApp)
 
+    End Sub
 
+    'Обработка кнопки настройки линии
+    Private Sub LB_SelectLine_Click(sender As Object, e As EventArgs) Handles LB_SelectLine.Click
+        ShowLineSettings()
+        ''Загружаем  данные из таблице App_List_For_PC 
+        AppRefresh()
+    End Sub
+    'Модуль вызова окна настройки линий
+    Private Sub ShowLineSettings()
+        GB_SelectLine.Visible = True
+        GB_SelectLine.Location = New Point(13, 13)
+        GB_SelectLine.Size = New Size(1192, 565)
+        'загружаем список линий
+        LoadGridFromDB(DG_LineList, ContractLineList)
+        'Выводим названия линий FAS в combobox
+        If DG_LineList.Rows.Count <> 0 Then
+            For J = 0 To DG_LineList.Rows.Count - 1
+                CB_Line.Items.Add(DG_LineList.Rows(J).Cells(1).Value)
+            Next
+        Else
+            MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
+        End If
+        'загружаем список операций 
+        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
+    End Sub
+    'Возврат к настройкам станции
+    Private Sub BT_CloseLineSet_Click(sender As Object, e As EventArgs) Handles BT_CloseLineSet.Click
+        GB_SelectLine.Visible = False
+        Dim frm = New SettingsForm
+        frm.Show()
+        Me.Close()
+    End Sub 'Модуль настройки линий
+    '_______________________________________________________________________________________________________________________________
+    'Модуль запуска программы (переход в WorkForm)
+    'Опредеяем номер выбранной строки в таблице лотов
+    Public selRowNum, LOTID As Integer
+    Private Sub DG_LOTListPresent_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DG_LOTListPresent.CellClick
+        selRowNum = DG_LOTListPresent.CurrentCell.RowIndex
+    End Sub
+    'Обработка кнопки запуск
+    'Private Sub BT_SelectLot_Click(sender As Object, e As EventArgs) Handles BT_SelectLot.Click
+    '    'определяем LOTCode и LOTID
+    '    If DG_LOTListPresent.Rows.Count <> 0 Then
+    '        LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
+    '        Dim WF As New WorkForm(LOTID, IDApp)
+    '        WF.Controllabel.Text = ""
+    '        WF.Show()
+    '        Me.Close()
+    '    Else
+    '        MsgBox("Список ЛОТов отсутствует!")
+    '        Exit Sub
+    '    End If
+    'End Sub 'Модуль запуска программы (переход в WorkForm)
 
 End Class
-
-

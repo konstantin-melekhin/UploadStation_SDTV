@@ -3,8 +3,8 @@ Public Class LineSettings
     Dim IDApp, StationID As String
     Private Sub LineSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'определяем IDApp для этого приложения
-        IDApp = SettingsForm.IDApp
-        StationID = SettingsForm.StationID
+        IDApp = SettingsForm_old.IDApp
+        StationID = SettingsForm_old.StationID
         'загружаем список линий
         LoadGridFromDB(DG_LineList, LineList)
         'Выводим названия линий FAS в combobox
@@ -18,7 +18,7 @@ Public Class LineSettings
         'получаем список приложений для данного ПК
         AppRefresh()
         'перетаскиваем название приложения в настройки
-        LabAppName.Text = SettingsForm.LabelAppName.Text
+        LabAppName.Text = SettingsForm_old.LabelAppName.Text
     End Sub
 
     Dim LineID As Integer
@@ -73,8 +73,8 @@ Public Class LineSettings
     'возврат в форму настроек лота
     Private Sub BT_Return_Click(sender As Object, e As EventArgs) Handles BT_Return.Click
         Me.Close()
-        SettingsForm.Show()
-        SettingsForm.LineUpdate()
+        SettingsForm_old.Show()
+        SettingsForm_old.LineUpdate()
     End Sub
 End Class
 
