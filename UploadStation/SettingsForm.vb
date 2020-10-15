@@ -1,4 +1,4 @@
-﻿Imports Library3
+﻿
 Public Class SettingsForm
     ReadOnly IDApp As Integer = 29
     Dim PCInfo As New ArrayList() 'PCInfo = (App_ID, App_Caption, lineID, LineName, StationName,CT_ScanStep)
@@ -21,18 +21,23 @@ Public Class SettingsForm
         'загружаем список лотов в грид
         GetLotList_SDTV(DG_LotList)
         GetLotList()
+
+        CheckBoxSN.Checked = True
+        CheckBoxID.Checked = True
+        CheckBoxDublicateSCID.Checked = True
     End Sub 'Загрузка формы настроек
     Private Sub GetLotList()
         For i = 0 To DG_LotList.RowCount - 1
             DG_LOTListPresent.Rows.Add(DG_LotList.Item(0, i).Value, DG_LotList.Item(1, i).Value,
-                                       DG_LotList.Item(2, i).Value, DG_LotList.Item(3, i).Value)
+                                       DG_LotList.Item(2, i).Value, DG_LotList.Item(3, i).Value,
+                                       DG_LotList.Item(4, i).Value)
         Next
         DG_LOTListPresent.Sort(DG_LOTListPresent.Columns(3), System.ComponentModel.ListSortDirection.Descending)
     End Sub 'Запись списка лотов в LOT List Presenter
     'Обновление списка лотов
     Private Sub BT_RefreshLOT_Click(sender As Object, e As EventArgs) Handles BT_RefreshLOT.Click
         DG_LOTListPresent.Rows.Clear()
-        GetLotList_ContractStation(DG_LotList)
+        GetLotList_SDTV(DG_LotList)
         GetLotList()
     End Sub 'Обновление списка лотов
     '_______________________________________________________________________________________________________________
@@ -100,8 +105,6 @@ Public Class SettingsForm
         Else
             MsgBox("Список линий не сформирован, возможно проблемы с сетью!" & vbCr & "Попробуйте перезапустить приложение")
         End If
-        'загружаем список операций 
-        LoadGridFromDB(DG_Steps, "SELECT [ID],[StepName],[Description] FROM [FAS].[dbo].[Ct_StepScan]")
     End Sub
     'Возврат к настройкам станции
     Private Sub BT_CloseLineSet_Click(sender As Object, e As EventArgs) Handles BT_CloseLineSet.Click
@@ -114,22 +117,27 @@ Public Class SettingsForm
     'Модуль запуска программы (переход в WorkForm)
     'Опредеяем номер выбранной строки в таблице лотов
     Public selRowNum, LOTID As Integer
+
+    'Private Sub BT_saveLOT_Click(sender As Object, e As EventArgs) Handles BT_saveLOT.Click
+    '    GenerateFullSTBSN_SDTV(TB_StartSN.Text, TB_LotCode.Text, TB_LOTSize.Text, TB_LotID.Text)
+    'End Sub
+
     Private Sub DG_LOTListPresent_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DG_LOTListPresent.CellClick
         selRowNum = DG_LOTListPresent.CurrentCell.RowIndex
     End Sub
     'Обработка кнопки запуск
-    'Private Sub BT_SelectLot_Click(sender As Object, e As EventArgs) Handles BT_SelectLot.Click
-    '    'определяем LOTCode и LOTID
-    '    If DG_LOTListPresent.Rows.Count <> 0 Then
-    '        LOTID = DG_LOTListPresent.Item(3, selRowNum).Value
-    '        Dim WF As New WorkForm(LOTID, IDApp)
-    '        WF.Controllabel.Text = ""
-    '        WF.Show()
-    '        Me.Close()
-    '    Else
-    '        MsgBox("Список ЛОТов отсутствует!")
-    '        Exit Sub
-    '    End If
-    'End Sub 'Модуль запуска программы (переход в WorkForm)
+    Private Sub BT_SelectLot_Click(sender As Object, e As EventArgs) Handles BT_SelectLot.Click
+        'определяем LOTCode и LOTID
+        If DG_LOTListPresent.Rows.Count <> 0 Then
+            LOTID = DG_LOTListPresent.Item(4, selRowNum).Value
+            Dim WF As New WorkForm(LOTID, IDApp)
+            WF.Controllabel.Text = ""
+            WF.Show()
+            Me.Close()
+        Else
+            MsgBox("Список ЛОТов отсутствует!")
+            Exit Sub
+        End If
+    End Sub 'Модуль запуска программы (переход в WorkForm)
 
 End Class

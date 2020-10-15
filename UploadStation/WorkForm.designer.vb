@@ -23,29 +23,26 @@ Partial Class WorkForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.SerialTextBox = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ScanDateLabel = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.BT_PrinterSettings = New System.Windows.Forms.Button()
-        Me.L_AppName = New System.Windows.Forms.Label()
+        Me.LabelAppName = New System.Windows.Forms.Label()
         Me.L_UserName = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.L_StationName = New System.Windows.Forms.Label()
+        Me.Label_StationName = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.L_Model = New System.Windows.Forms.Label()
         Me.BT_OpenSettings = New System.Windows.Forms.Button()
-        Me.BT_CloseApp = New System.Windows.Forms.Button()
         Me.L_FullLot = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.L_LOT = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.L_Line = New System.Windows.Forms.Label()
+        Me.Lebel_StationLine = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
@@ -86,18 +83,16 @@ Partial Class WorkForm
         Me.DG_CheckSN = New System.Windows.Forms.DataGridView()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.GB_NotVisible = New System.Windows.Forms.GroupBox()
-        Me.DG_Reapload = New System.Windows.Forms.DataGridView()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.DG_Reapload = New System.Windows.Forms.DataGridView()
         Me.DG_IsPacked = New System.Windows.Forms.DataGridView()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.UploadSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.PrintSerialPort = New System.IO.Ports.SerialPort(Me.components)
-        Me.TB_RFIDIn = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.GB_UserData = New System.Windows.Forms.GroupBox()
-        Me.BT_LOGInClose = New System.Windows.Forms.Button()
+        Me.BT_StartUpload = New System.Windows.Forms.Button()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -110,26 +105,7 @@ Partial Class WorkForm
         Me.GB_NotVisible.SuspendLayout()
         CType(Me.DG_Reapload, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DG_IsPacked, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GB_UserData.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'SerialTextBox
-        '
-        Me.SerialTextBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.SerialTextBox.Location = New System.Drawing.Point(17, 325)
-        Me.SerialTextBox.Name = "SerialTextBox"
-        Me.SerialTextBox.Size = New System.Drawing.Size(508, 31)
-        Me.SerialTextBox.TabIndex = 1
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.Label2.Location = New System.Drawing.Point(14, 297)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(161, 25)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Serial Number"
         '
         'ScanDateLabel
         '
@@ -157,21 +133,20 @@ Partial Class WorkForm
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.BT_PrinterSettings)
-        Me.GroupBox4.Controls.Add(Me.L_AppName)
+        Me.GroupBox4.Controls.Add(Me.LabelAppName)
         Me.GroupBox4.Controls.Add(Me.L_UserName)
         Me.GroupBox4.Controls.Add(Me.Label5)
         Me.GroupBox4.Controls.Add(Me.Label6)
-        Me.GroupBox4.Controls.Add(Me.L_StationName)
+        Me.GroupBox4.Controls.Add(Me.Label_StationName)
         Me.GroupBox4.Controls.Add(Me.Label7)
         Me.GroupBox4.Controls.Add(Me.L_Model)
         Me.GroupBox4.Controls.Add(Me.BT_OpenSettings)
-        Me.GroupBox4.Controls.Add(Me.BT_CloseApp)
         Me.GroupBox4.Controls.Add(Me.L_FullLot)
         Me.GroupBox4.Controls.Add(Me.Label11)
         Me.GroupBox4.Controls.Add(Me.Label10)
         Me.GroupBox4.Controls.Add(Me.L_LOT)
         Me.GroupBox4.Controls.Add(Me.Label9)
-        Me.GroupBox4.Controls.Add(Me.L_Line)
+        Me.GroupBox4.Controls.Add(Me.Lebel_StationLine)
         Me.GroupBox4.Controls.Add(Me.Label1)
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
         Me.GroupBox4.Location = New System.Drawing.Point(840, 8)
@@ -194,15 +169,15 @@ Partial Class WorkForm
         Me.BT_PrinterSettings.TabIndex = 28
         Me.BT_PrinterSettings.UseVisualStyleBackColor = False
         '
-        'L_AppName
+        'LabelAppName
         '
-        Me.L_AppName.AutoSize = True
-        Me.L_AppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_AppName.Location = New System.Drawing.Point(228, 19)
-        Me.L_AppName.Name = "L_AppName"
-        Me.L_AppName.Size = New System.Drawing.Size(64, 20)
-        Me.L_AppName.TabIndex = 20
-        Me.L_AppName.Text = "fasend"
+        Me.LabelAppName.AutoSize = True
+        Me.LabelAppName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.LabelAppName.Location = New System.Drawing.Point(228, 19)
+        Me.LabelAppName.Name = "LabelAppName"
+        Me.LabelAppName.Size = New System.Drawing.Size(64, 20)
+        Me.LabelAppName.TabIndex = 20
+        Me.LabelAppName.Text = "fasend"
         '
         'L_UserName
         '
@@ -213,6 +188,7 @@ Partial Class WorkForm
         Me.L_UserName.Size = New System.Drawing.Size(174, 20)
         Me.L_UserName.TabIndex = 19
         Me.L_UserName.Text = "Имя пользователя:"
+        Me.L_UserName.Visible = False
         '
         'Label5
         '
@@ -223,6 +199,7 @@ Partial Class WorkForm
         Me.Label5.Size = New System.Drawing.Size(174, 20)
         Me.Label5.TabIndex = 19
         Me.Label5.Text = "Имя пользователя:"
+        Me.Label5.Visible = False
         '
         'Label6
         '
@@ -234,15 +211,15 @@ Partial Class WorkForm
         Me.Label6.TabIndex = 16
         Me.Label6.Text = "Название приложения:"
         '
-        'L_StationName
+        'Label_StationName
         '
-        Me.L_StationName.AutoSize = True
-        Me.L_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_StationName.Location = New System.Drawing.Point(228, 41)
-        Me.L_StationName.Name = "L_StationName"
-        Me.L_StationName.Size = New System.Drawing.Size(33, 20)
-        Me.L_StationName.TabIndex = 16
-        Me.L_StationName.Text = "ПК"
+        Me.Label_StationName.AutoSize = True
+        Me.Label_StationName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Label_StationName.Location = New System.Drawing.Point(228, 41)
+        Me.Label_StationName.Name = "Label_StationName"
+        Me.Label_StationName.Size = New System.Drawing.Size(33, 20)
+        Me.Label_StationName.TabIndex = 16
+        Me.Label_StationName.Text = "ПК"
         '
         'Label7
         '
@@ -269,23 +246,11 @@ Partial Class WorkForm
         Me.BT_OpenSettings.FlatAppearance.BorderSize = 0
         Me.BT_OpenSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BT_OpenSettings.Image = Global.UploadStation.My.Resources.Resources.settings__1_
-        Me.BT_OpenSettings.Location = New System.Drawing.Point(385, 200)
+        Me.BT_OpenSettings.Location = New System.Drawing.Point(452, 197)
         Me.BT_OpenSettings.Name = "BT_OpenSettings"
         Me.BT_OpenSettings.Size = New System.Drawing.Size(61, 56)
         Me.BT_OpenSettings.TabIndex = 22
         Me.BT_OpenSettings.UseVisualStyleBackColor = True
-        '
-        'BT_CloseApp
-        '
-        Me.BT_CloseApp.BackColor = System.Drawing.Color.Transparent
-        Me.BT_CloseApp.FlatAppearance.BorderSize = 0
-        Me.BT_CloseApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_CloseApp.Image = Global.UploadStation.My.Resources.Resources.close
-        Me.BT_CloseApp.Location = New System.Drawing.Point(452, 203)
-        Me.BT_CloseApp.Name = "BT_CloseApp"
-        Me.BT_CloseApp.Size = New System.Drawing.Size(61, 51)
-        Me.BT_CloseApp.TabIndex = 23
-        Me.BT_CloseApp.UseVisualStyleBackColor = False
         '
         'L_FullLot
         '
@@ -337,15 +302,15 @@ Partial Class WorkForm
         Me.Label9.TabIndex = 16
         Me.Label9.Text = "Номер ЛОТа:"
         '
-        'L_Line
+        'Lebel_StationLine
         '
-        Me.L_Line.AutoSize = True
-        Me.L_Line.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.L_Line.Location = New System.Drawing.Point(228, 63)
-        Me.L_Line.Name = "L_Line"
-        Me.L_Line.Size = New System.Drawing.Size(43, 20)
-        Me.L_Line.TabIndex = 16
-        Me.L_Line.Text = "Line"
+        Me.Lebel_StationLine.AutoSize = True
+        Me.Lebel_StationLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.Lebel_StationLine.Location = New System.Drawing.Point(228, 63)
+        Me.Lebel_StationLine.Name = "Lebel_StationLine"
+        Me.Lebel_StationLine.Size = New System.Drawing.Size(43, 20)
+        Me.Lebel_StationLine.TabIndex = 16
+        Me.Lebel_StationLine.Text = "Line"
         '
         'Label1
         '
@@ -393,6 +358,7 @@ Partial Class WorkForm
         '
         'GB_WorkAria
         '
+        Me.GB_WorkAria.Controls.Add(Me.BT_StartUpload)
         Me.GB_WorkAria.Controls.Add(Me.GB_PrinterSettings)
         Me.GB_WorkAria.Controls.Add(Me.ProgressBar1)
         Me.GB_WorkAria.Controls.Add(Me.DG_UpLog)
@@ -402,14 +368,11 @@ Partial Class WorkForm
         Me.GB_WorkAria.Controls.Add(Me.Controllabel)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox4)
         Me.GB_WorkAria.Controls.Add(Me.GroupBox3)
-        Me.GB_WorkAria.Controls.Add(Me.Label2)
-        Me.GB_WorkAria.Controls.Add(Me.SerialTextBox)
         Me.GB_WorkAria.Location = New System.Drawing.Point(10, 4)
         Me.GB_WorkAria.Name = "GB_WorkAria"
         Me.GB_WorkAria.Size = New System.Drawing.Size(1365, 801)
         Me.GB_WorkAria.TabIndex = 23
         Me.GB_WorkAria.TabStop = False
-        Me.GB_WorkAria.Visible = False
         '
         'GB_PrinterSettings
         '
@@ -548,16 +511,16 @@ Partial Class WorkForm
         '
         Me.DG_UpLog.AllowUserToAddRows = False
         Me.DG_UpLog.AllowUserToDeleteRows = False
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
         Me.DG_UpLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber, Me.SCIDTab, Me.CASIDTab, Me.HDCP, Me.CERT, Me.MAC, Me.LDS, Me.SW, Me.SWGS1, Me.StartT, Me.ScanDate})
         Me.DG_UpLog.Location = New System.Drawing.Point(17, 372)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle6
         Me.DG_UpLog.Size = New System.Drawing.Size(1342, 381)
         Me.DG_UpLog.TabIndex = 25
         '
@@ -727,8 +690,9 @@ Partial Class WorkForm
         '
         'GB_NotVisible
         '
-        Me.GB_NotVisible.Controls.Add(Me.DG_Reapload)
         Me.GB_NotVisible.Controls.Add(Me.TextBox1)
+        Me.GB_NotVisible.Controls.Add(Me.TextBox2)
+        Me.GB_NotVisible.Controls.Add(Me.DG_Reapload)
         Me.GB_NotVisible.Controls.Add(Me.DG_SNTable)
         Me.GB_NotVisible.Controls.Add(Me.DG_IsPacked)
         Me.GB_NotVisible.Controls.Add(Me.Label15)
@@ -742,7 +706,24 @@ Partial Class WorkForm
         Me.GB_NotVisible.TabIndex = 32
         Me.GB_NotVisible.TabStop = False
         Me.GB_NotVisible.Text = "NotVisible"
-        Me.GB_NotVisible.Visible = False
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(153, 177)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox1.Size = New System.Drawing.Size(162, 75)
+        Me.TextBox1.TabIndex = 131
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(317, 177)
+        Me.TextBox2.Multiline = True
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox2.Size = New System.Drawing.Size(154, 75)
+        Me.TextBox2.TabIndex = 130
         '
         'DG_Reapload
         '
@@ -754,14 +735,6 @@ Partial Class WorkForm
         Me.DG_Reapload.ReadOnly = True
         Me.DG_Reapload.Size = New System.Drawing.Size(137, 92)
         Me.DG_Reapload.TabIndex = 129
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(22, 357)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(512, 76)
-        Me.TextBox1.TabIndex = 34
         '
         'DG_IsPacked
         '
@@ -797,61 +770,23 @@ Partial Class WorkForm
         '
         Me.CurrentTimeTimer.Interval = 1000
         '
-        'TB_RFIDIn
+        'BT_StartUpload
         '
-        Me.TB_RFIDIn.Location = New System.Drawing.Point(11, 88)
-        Me.TB_RFIDIn.Name = "TB_RFIDIn"
-        Me.TB_RFIDIn.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TB_RFIDIn.Size = New System.Drawing.Size(345, 31)
-        Me.TB_RFIDIn.TabIndex = 0
-        Me.TB_RFIDIn.Text = "0000181218"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 45)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(321, 25)
-        Me.Label13.TabIndex = 1
-        Me.Label13.Text = "Отсканируйте свой бэйджик"
-        '
-        'GB_UserData
-        '
-        Me.GB_UserData.BackColor = System.Drawing.Color.NavajoWhite
-        Me.GB_UserData.Controls.Add(Me.BT_LOGInClose)
-        Me.GB_UserData.Controls.Add(Me.Label13)
-        Me.GB_UserData.Controls.Add(Me.TB_RFIDIn)
-        Me.GB_UserData.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GB_UserData.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.GB_UserData.Location = New System.Drawing.Point(1394, 12)
-        Me.GB_UserData.Name = "GB_UserData"
-        Me.GB_UserData.Size = New System.Drawing.Size(449, 197)
-        Me.GB_UserData.TabIndex = 29
-        Me.GB_UserData.TabStop = False
-        Me.GB_UserData.Text = "Регистрация пользователя"
-        '
-        'BT_LOGInClose
-        '
-        Me.BT_LOGInClose.BackColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.FlatAppearance.BorderSize = 0
-        Me.BT_LOGInClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.BT_LOGInClose.ForeColor = System.Drawing.Color.Transparent
-        Me.BT_LOGInClose.Image = Global.UploadStation.My.Resources.Resources.close
-        Me.BT_LOGInClose.Location = New System.Drawing.Point(362, 74)
-        Me.BT_LOGInClose.Name = "BT_LOGInClose"
-        Me.BT_LOGInClose.Size = New System.Drawing.Size(53, 59)
-        Me.BT_LOGInClose.TabIndex = 2
-        Me.BT_LOGInClose.UseVisualStyleBackColor = False
+        Me.BT_StartUpload.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.BT_StartUpload.Location = New System.Drawing.Point(17, 305)
+        Me.BT_StartUpload.Name = "BT_StartUpload"
+        Me.BT_StartUpload.Size = New System.Drawing.Size(458, 44)
+        Me.BT_StartUpload.TabIndex = 130
+        Me.BT_StartUpload.Text = "Start Upload"
+        Me.BT_StartUpload.UseVisualStyleBackColor = True
         '
         'WorkForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1855, 799)
-        Me.ControlBox = False
         Me.Controls.Add(Me.GB_NotVisible)
         Me.Controls.Add(Me.GB_WorkAria)
-        Me.Controls.Add(Me.GB_UserData)
         Me.Name = "WorkForm"
         Me.Text = "Upload Station"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -874,23 +809,18 @@ Partial Class WorkForm
         Me.GB_NotVisible.PerformLayout()
         CType(Me.DG_Reapload, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DG_IsPacked, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GB_UserData.ResumeLayout(False)
-        Me.GB_UserData.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents SerialTextBox As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents ScanDateLabel As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Controllabel As Label
     Friend WithEvents BT_OpenSettings As Button
-    Friend WithEvents L_AppName As Label
+    Friend WithEvents LabelAppName As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents L_StationName As Label
+    Friend WithEvents Label_StationName As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents L_Model As Label
     Friend WithEvents L_FullLot As Label
@@ -898,15 +828,13 @@ Partial Class WorkForm
     Friend WithEvents Label10 As Label
     Friend WithEvents L_LOT As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents L_Line As Label
+    Friend WithEvents Lebel_StationLine As Label
     Friend WithEvents GB_WorkAria As GroupBox
     Friend WithEvents L_UserName As Label
     Friend WithEvents GB_NotVisible As GroupBox
     Friend WithEvents DG_CheckSN As DataGridView
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents BT_CloseApp As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents CurrrentTimeLabel As Label
     Friend WithEvents CurrentTimeTimer As Timer
@@ -932,10 +860,6 @@ Partial Class WorkForm
     Friend WithEvents ScanDate As DataGridViewTextBoxColumn
     Friend WithEvents Controllabel2 As Label
     Friend WithEvents ProgressBar1 As ProgressBar
-    Friend WithEvents TB_RFIDIn As TextBox
-    Friend WithEvents Label13 As Label
-    Friend WithEvents GB_UserData As GroupBox
-    Friend WithEvents BT_LOGInClose As Button
     Friend WithEvents GB_PrinterSettings As GroupBox
     Friend WithEvents BT_ClosePrintSet As Button
     Friend WithEvents TB_IDNum_X As TextBox
@@ -952,4 +876,8 @@ Partial Class WorkForm
     Friend WithEvents BT_PrinterSettings As Button
     Friend WithEvents DG_Reapload As DataGridView
     Friend WithEvents Label12 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents BT_StartUpload As Button
 End Class

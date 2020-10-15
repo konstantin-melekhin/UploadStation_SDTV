@@ -53,7 +53,6 @@ Partial Class SettingsForm_old
         Me.Label7 = New System.Windows.Forms.Label()
         Me.CB_HDCPUpload = New System.Windows.Forms.CheckBox()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.CB_MACUpload = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.LabelStationID = New System.Windows.Forms.Label()
@@ -61,6 +60,7 @@ Partial Class SettingsForm_old
         Me.CB_CheckModel = New System.Windows.Forms.CheckBox()
         Me.CB_SWGS1Version = New System.Windows.Forms.CheckBox()
         Me.CB_SWVersion = New System.Windows.Forms.CheckBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.DG_LOTListPresent = New System.Windows.Forms.DataGridView()
         Me.LOT = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.FullLOTCode = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -356,15 +356,6 @@ Partial Class SettingsForm_old
         Me.Button2.UseVisualStyleBackColor = True
         Me.Button2.Visible = False
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(28, 571)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(38, 13)
-        Me.Label6.TabIndex = 36
-        Me.Label6.Text = "LotList"
-        '
         'CB_MACUpload
         '
         Me.CB_MACUpload.AutoSize = True
@@ -434,6 +425,15 @@ Partial Class SettingsForm_old
         Me.CB_SWVersion.TabIndex = 21
         Me.CB_SWVersion.Text = "Проверка версии ПО"
         Me.CB_SWVersion.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(28, 571)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(38, 13)
+        Me.Label6.TabIndex = 36
+        Me.Label6.Text = "LotList"
         '
         'DG_LOTListPresent
         '
@@ -587,7 +587,7 @@ Partial Class SettingsForm_old
         Me.BT_SelectLot.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.BT_SelectLot.UseVisualStyleBackColor = False
         '
-        'SettingsForm
+        'SettingsForm_old
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -601,7 +601,7 @@ Partial Class SettingsForm_old
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.BT_SelectLot)
         Me.Controls.Add(Me.L_Result)
-        Me.Name = "SettingsForm"
+        Me.Name = "SettingsForm_old"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Настройки"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
