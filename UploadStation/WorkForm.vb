@@ -70,7 +70,7 @@ Public Class WorkForm
         UploadSerialPort.Encoding = System.Text.Encoding.Default 'very important!
         PrintSerialPort.PortName = "com3"
         PrintSerialPort.BaudRate = 115200
-        'проверкака ком порта прошивки
+        ''''проверкака ком порта прошивки
         Try
             UploadSerialPort.Open()
             UploadSerialPort.Close()
@@ -145,7 +145,6 @@ Public Class WorkForm
             where SN = " & ShortSN
         RunCommand(Sql)
         'обновление таблицы счетчика дневного выпуска на линии
-
         Upd = True
     End Sub
 
@@ -176,31 +175,31 @@ Public Class WorkForm
 
     Private Sub StartUpload(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Or e.KeyCode = Keys.Space Then
-            'PrintLabel(Controllabel, "Upload in progress!", 26, 155, Color.Yellow, New Font("Microsoft Sans Serif", 40, FontStyle.Bold))
+            PrintLabel(Controllabel, "Upload in progress!", 26, 155, Color.Yellow, New Font("Microsoft Sans Serif", 40, FontStyle.Bold))
             BT_StartUpload_Click(sender, e)
         End If
     End Sub
 
     Dim SearchedSN As ArrayList = New ArrayList
     Private Sub BT_StartUpload_Click(sender As Object, e As EventArgs) Handles BT_StartUpload.Click
+        Controllabel.Text = ""
         StartTime = Mid(ScanDateLabel.Text, 11, 9)
         sw1 = New Stopwatch()
         sw1.Start()
+        Upload()
         PrintLabel(Controllabel, "Upload in progress!", 26, 155, Color.Green, New Font("Microsoft Sans Serif", 40, FontStyle.Bold))
         BT_StartUpload.Enabled = False
-        AsyncMethod()
     End Sub
 
 
 
     Dim UpRes As Boolean
     Private Sub Upload()
-        'ScanDateLabel.Text = Now
-
+        ScanDateLabel.Text = Now
         'Обрабатываем нажатие  Enter и  ввода серийного номера в поле сериного номера со всеми условиями согласно настрое лота
-        'StartTime = Mid(ScanDateLabel.Text, 11, 9)
-        'sw1 = New Stopwatch()
-        'sw1.Start()
+        StartTime = Mid(ScanDateLabel.Text, 11, 9)
+        sw1 = New Stopwatch()
+        sw1.Start()
         '---- Запрос SCID ----
         Readed_SCID = GetDatafromSTB(UploadSerialPort, "AB", "2B000E", Controllabel, "Ошибка при попытке проверки SCID")
         If Readed_SCID <> "" Then
@@ -236,9 +235,7 @@ Public Class WorkForm
         End If
         'BT_StartUpload.Enabled = True
     End Sub
-    Async Function AsyncMethod() As Task
-        Await Task.Run(Sub() Upload())
-    End Function
+
     '''_________________________________________________________________________________________________________________
     '' модуль прошивки серийного номера
     'Dim UploadResult As Boolean
@@ -246,39 +243,33 @@ Public Class WorkForm
     Private Function StartSubUpload() As Boolean
         Dim res As Boolean
         For i = 1 To 8
-            Invoke(Function() StartUpload(i))
-            Invoke(Sub() Check(i))
             If StartUpload(i) = True Then
                 res = True
             Else
                 Exit Function
             End If
         Next
-        'If UpRes = True Then
-        WriteToDB(SearchedSN(0))
+        If UpRes = True Then
+            WriteToDB(SearchedSN(0))
 
-        'End If
+        End If
         Return res
     End Function
-
-    Sub Check(index As Integer)
-        ProgressBar1.Value = index
-    End Sub
 
     Private Function StartUpload(t As Integer) As Boolean
         '------------------------------------------------------------------------------------------------------------
         Dim UploadResult As Boolean
         Select Case t
             Case 1
-                'ProgressBar1.Value = 0
-                'CurrrentTimeLabel.Text = TimeString
+                ProgressBar1.Value = 0
+                CurrrentTimeLabel.Text = TimeString
                 '------------------------------------------------------------------------------------------------------------
                 'Запрос Модели приемника
                 If LOTInfo(10) = True Then
                     Model = GetDatafromSTB(UploadSerialPort, "AE", "2E00", Controllabel, "Ошибка при чтении модели")
-                    If Model = LOTInfo(3) Then
+                    If Model = "GS B527" Then 'LOTInfo(3) Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     ElseIf Model <> LOTInfo(3) And Model <> Nothing Then
                         Controllabel.Text = "Модель не соответствует"
                         Controllabel.ForeColor = Color.Red
@@ -294,7 +285,7 @@ Public Class WorkForm
                 If DUID <> Nothing Then
                     CASID = LOTInfo(16) + DUID
                     UploadResult = True
-                    'ProgressBar1.Value = t
+                    ProgressBar1.Value = t
                 Else
                     Exit Function
                 End If
@@ -305,7 +296,7 @@ Public Class WorkForm
                     SW_v = GetDatafromSTB(UploadSerialPort, "AC", "2C00", Controllabel, "Ошибка при чтении версии ПО")
                     If SW_v <> Nothing Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     Else
                         Exit Function
                     End If
@@ -317,7 +308,7 @@ Public Class WorkForm
                     SWGS1_v = GetDatafromSTB(UploadSerialPort, "AD", "2D00", Controllabel, "Ошибка при чтении версии ПО GS1")
                     If SWGS1_v <> Nothing Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     Else
                         Exit Function
                     End If
@@ -328,7 +319,7 @@ Public Class WorkForm
                 If LOTInfo(7) = True Then
                     If WriteHDCP(UploadSerialPort, SearchedSN(0), Controllabel, "Ошибка при прошивке HDCP") = True Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     Else
                         Exit Function
                     End If
@@ -339,7 +330,7 @@ Public Class WorkForm
                 If LOTInfo(8) = True Then
                     If WriteCERT(UploadSerialPort, SearchedSN(0), Controllabel, "Ошибка при прошивке сертификата") = True Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     Else
                         Exit Function
                     End If
@@ -350,7 +341,7 @@ Public Class WorkForm
                 If LOTInfo(9) = True Then
                     If WriteMAC(UploadSerialPort, SearchedSN(2), Controllabel, "Ошибка при прошивке MAC адреса") = True Then
                         UploadResult = True
-                        'ProgressBar1.Value = t
+                        ProgressBar1.Value = t
                     Else
                         Exit Function
                     End If
@@ -365,7 +356,7 @@ Public Class WorkForm
                 ReadedSN = SetSN(UploadSerialPort, SearchedSN(1), Controllabel, "Ошибка при прошивке серийного номера")
                 If ReadedSN = SearchedSN(1) Then
                     UploadResult = True
-                    'ProgressBar1.Value = t
+                    ProgressBar1.Value = t
                 ElseIf ReadedSN <> SearchedSN(1) And ReadedSN <> Nothing Then
                     Controllabel.Text = "Считанный номер " & ReadedSN & " не соответствует прошитому " & SearchedSN(1)
                     Controllabel.ForeColor = Color.Red

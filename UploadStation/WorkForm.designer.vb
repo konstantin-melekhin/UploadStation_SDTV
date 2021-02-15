@@ -23,8 +23,8 @@ Partial Class WorkForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.ScanDateLabel = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -48,6 +48,7 @@ Partial Class WorkForm
         Me.CurrrentTimeLabel = New System.Windows.Forms.Label()
         Me.Controllabel = New System.Windows.Forms.Label()
         Me.GB_WorkAria = New System.Windows.Forms.GroupBox()
+        Me.BT_StartUpload = New System.Windows.Forms.Button()
         Me.GB_PrinterSettings = New System.Windows.Forms.GroupBox()
         Me.BT_ClosePrintSet = New System.Windows.Forms.Button()
         Me.TB_IDNum_X = New System.Windows.Forms.TextBox()
@@ -92,7 +93,6 @@ Partial Class WorkForm
         Me.CurrentTimeTimer = New System.Windows.Forms.Timer(Me.components)
         Me.UploadSerialPort = New System.IO.Ports.SerialPort(Me.components)
         Me.PrintSerialPort = New System.IO.Ports.SerialPort(Me.components)
-        Me.BT_StartUpload = New System.Windows.Forms.Button()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -334,6 +334,7 @@ Partial Class WorkForm
         Me.GroupBox5.TabIndex = 24
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Время"
+        Me.GroupBox5.Visible = False
         '
         'CurrrentTimeLabel
         '
@@ -373,6 +374,16 @@ Partial Class WorkForm
         Me.GB_WorkAria.Size = New System.Drawing.Size(1365, 801)
         Me.GB_WorkAria.TabIndex = 23
         Me.GB_WorkAria.TabStop = False
+        '
+        'BT_StartUpload
+        '
+        Me.BT_StartUpload.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.BT_StartUpload.Location = New System.Drawing.Point(17, 305)
+        Me.BT_StartUpload.Name = "BT_StartUpload"
+        Me.BT_StartUpload.Size = New System.Drawing.Size(458, 44)
+        Me.BT_StartUpload.TabIndex = 130
+        Me.BT_StartUpload.Text = "Start Upload"
+        Me.BT_StartUpload.UseVisualStyleBackColor = True
         '
         'GB_PrinterSettings
         '
@@ -511,16 +522,16 @@ Partial Class WorkForm
         '
         Me.DG_UpLog.AllowUserToAddRows = False
         Me.DG_UpLog.AllowUserToDeleteRows = False
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.DG_UpLog.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.DG_UpLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DG_UpLog.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Num, Me.SNumber, Me.SCIDTab, Me.CASIDTab, Me.HDCP, Me.CERT, Me.MAC, Me.LDS, Me.SW, Me.SWGS1, Me.StartT, Me.ScanDate})
         Me.DG_UpLog.Location = New System.Drawing.Point(17, 372)
         Me.DG_UpLog.Name = "DG_UpLog"
         Me.DG_UpLog.ReadOnly = True
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
+        Me.DG_UpLog.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.DG_UpLog.Size = New System.Drawing.Size(1342, 381)
         Me.DG_UpLog.TabIndex = 25
         '
@@ -769,16 +780,6 @@ Partial Class WorkForm
         'CurrentTimeTimer
         '
         Me.CurrentTimeTimer.Interval = 1000
-        '
-        'BT_StartUpload
-        '
-        Me.BT_StartUpload.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(204, Byte))
-        Me.BT_StartUpload.Location = New System.Drawing.Point(17, 305)
-        Me.BT_StartUpload.Name = "BT_StartUpload"
-        Me.BT_StartUpload.Size = New System.Drawing.Size(458, 44)
-        Me.BT_StartUpload.TabIndex = 130
-        Me.BT_StartUpload.Text = "Start Upload"
-        Me.BT_StartUpload.UseVisualStyleBackColor = True
         '
         'WorkForm
         '
